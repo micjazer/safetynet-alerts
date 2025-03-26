@@ -1,104 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- Version du modèle POM -->
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Définition du projet parent -->
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.0-M3</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>org.springframework.boot</groupId> <!-- Identifiant du groupe du parent -->
+		<artifactId>spring-boot-starter-parent</artifactId> <!-- Identifiant de l'artefact du parent -->
+		<version>3.5.0-M3</version> <!-- Version du parent -->
+		<relativePath/> <!-- Recherche du parent dans le dépôt -->
 	</parent>
-	<groupId>com.safetynet</groupId>
-	<artifactId>alerts</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>SafetyNetAlerts</name>
-	<description>REST API pour SafetyNet Alerts</description>
-	<url/>
+
+	<!-- Informations sur le projet -->
+	<groupId>com.safetynet</groupId> <!-- Identifiant unique du groupe -->
+	<artifactId>alerts</artifactId> <!-- Identifiant unique du projet -->
+	<version>0.0.1-SNAPSHOT</version> <!-- Version actuelle du projet -->
+	<name>SafetyNetAlerts</name> <!-- Nom du projet -->
+	<description>REST API pour SafetyNet Alerts</description> <!-- Description du projet -->
+	<url/> <!-- URL du projet (vide ici) -->
+
+	<!-- Licences et développeurs -->
 	<licenses>
-		<license/>
+		<license/> <!-- Section pour spécifier les licences (vide ici) -->
 	</licenses>
 	<developers>
-		<developer/>
+		<developer/> <!-- Section pour spécifier les développeurs (vide ici) -->
 	</developers>
+
+	<!-- Système de gestion de version (SCM) -->
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection/> <!-- URL de connexion au dépôt (vide ici) -->
+		<developerConnection/> <!-- URL de connexion pour les développeurs (vide ici) -->
+		<tag/> <!-- Tag du projet (vide ici) -->
+		<url/> <!-- URL du dépôt (vide ici) -->
 	</scm>
+
+	<!-- Propriétés du projet -->
 	<properties>
-		<java.version>21</java.version>
+		<java.version>21</java.version> <!-- Version de Java utilisée -->
 	</properties>
+
+	<!-- Dépendances du projet -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId> <!-- Dépendance pour créer des applications web avec Spring Boot -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-devtools</artifactId> <!-- Outils de développement pour faciliter le développement -->
+			<scope>runtime</scope> <!-- Scope à l'exécution -->
+			<optional>true</optional> <!-- Dépendance optionnelle -->
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<artifactId>lombok</artifactId> <!-- Bibliothèque pour réduire le code boilerplate -->
+			<optional>true</optional> <!-- Dépendance optionnelle -->
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-test</artifactId> <!-- Dépendance pour les tests unitaires et d'intégration -->
+			<scope>test</scope> <!-- Scope pour les tests -->
 		</dependency>
 	</dependencies>
 
+	<!-- Configuration de la construction du projet -->
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId> <!-- Plugin pour compiler le code Java -->
 				<configuration>
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
+							<artifactId>lombok</artifactId> <!-- Inclusion de Lombok dans les chemins de traitement d'annotations -->
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<artifactId>spring-boot-maven-plugin</artifactId> <!-- Plugin pour faciliter la construction des applications Spring Boot -->
 				<configuration>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
+							<artifactId>lombok</artifactId> <!-- Exclusion de Lombok lors de la construction -->
 						</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- Dépôts pour récupérer les dépendances -->
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
+			<url>https://repo.spring.io/milestone</url> <!-- Dépôt pour les versions de développement -->
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>false</enabled> <!-- Désactivation des snapshots -->
 			</snapshots>
 		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url> <!-- Dépôt pour les versions instantanées -->
+			<releases>
+				<enabled>false</enabled> <!-- Désactivation des releases -->
+			</releases>
+		</repository>
 	</repositories>
+
+	<!-- Dépôts de plugins -->
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
+			<url>https://repo.spring.io/milestone</url> <!-- Dépôt pour les plugins de développement -->
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>false</enabled> <!-- Désactivation des snapshots -->
 			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url> <!-- Dépôt pour les plugins instantanés -->
+			<releases>
+				<enabled>false</enabled> <!-- Désactivation des releases -->
+			</releases>
 		</pluginRepository>
 	</pluginRepositories>
 
