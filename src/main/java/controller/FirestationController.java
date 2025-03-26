@@ -19,7 +19,14 @@ public class FirestationController {
 
     @GetMapping
     public ResponseEntity<FirestationResponseDTO> getByStation(@RequestParam int stationNumber) {
-        log.info("GET /firestation?stationNumber={}", stationNumber);
-        return ResponseEntity.ok(service.getPersonsByStation(stationNumber));
+        log.info("Requête GET /firestation reçue avec stationNumber={}", stationNumber);
+        try {
+            FirestationResponseDTO response = service.getPersonsByStation(stationNumber);
+            log.debug("Réponse construite : {} personnes trouvées", response.getPersons().size());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Erreur lors du traitement de /firestation : {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

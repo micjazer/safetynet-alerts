@@ -1,42 +1,32 @@
-package com.safetynet.alerts.service;
+package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.dto.*;
-import com.safetynet.alerts.model.*;
-import com.safetynet.alerts.repository.DataRepository;
-import com.safetynet.alerts.utils.AgeUtils;
-import org.springframework.stereotype.Service;
+import com.safetynet.alerts.dto.FirestationResponseDTO;
+import com.safetynet.alerts.service.FirestationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+@RestController
+@RequestMapping("/firestation")
+public class FirestationController {
+    private static final Logger log = LoggerFactory.getLogger(FirestationController.class);
+    private final FirestationService service;
 
-@Service
-public class FirestationService {
-    private final DataRepository repository;
-
-    public FirestationService(DataRepository repository) {
-        this.repository = repository;
+    public FirestationController(FirestationService service) {
+        this.service = service;
     }
 
-    public FirestationResponseDTO getPersonsByStation(int stationNumber) {
-        List<String> addresses = repository.getFirestations().stream()
-                .filter(fs -> Integer.parseInt(fs.getStation()) == stationNumber)
-                .map(Firestation::getAddress)
-                .collect(Collectors.toList());
-
-        List<Person> matchedPersons = repository.getPersons().stream()
-                .filter(p -> addresses.contains(p.getAddress()))
-                .collect(Collectors.toList());
-
-        int adults = 0, children = 0;
-        List<PersonSummaryDTO> summaries = new ArrayList<>();
-
-        for (Person p : matchedPersons) {
-            int age = AgeUtils.calculateAge(p.getFirstName(), p.getLastName(), repository.getMedicalRecords());
-            if (age <= 18) children++; else adults++;
-            summaries.add(new PersonSummaryDTO(p.getFirstName(), p.getLastName(), p.getAddress(), p.getPhone()));
+    @GetMapping
+    public ResponseEntity<FirestationResponseDTO> getByStation(@RequestParam int stationNumber) {
+        log.info("Requête GET /firestation reçue avec stationNumber={}", stationNumber);
+        try {
+            FirestationResponseDTO response = service.getPersonsByStation(stationNumber);
+            log.debug("Réponse construite : {} personnes trouvées", response.getPersons().size());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Erreur lors du traitement de /firestation : {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().build();
         }
-
-        return new FirestationResponseDTO(summaries, adults, children);
     }
 }
