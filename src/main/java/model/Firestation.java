@@ -1,4 +1,8 @@
-package model;
+package com.safetynet.alerts.model;
 
 public class Firestation {
+    private String address;
+    private String station;
+
+    // Getters and Setters
 }
