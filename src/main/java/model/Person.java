@@ -48,4 +48,3 @@ public record Person(
         String email
 ) {
 }
-

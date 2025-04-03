@@ -34,4 +34,3 @@ public record MedicalRecord(
         String[] allergies
 ) {
 }
-
